@@ -1,0 +1,57 @@
+{
+  "name": "ether-gui",
+  "version": "1.0.0",
+  "description": "React UI generator and web3 interactions for Ethereum smart contracts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "test": "exit 0",
+    "prepack": "tsc"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webmass/ether-gui.git"
+  },
+  "keywords": [
+    "smart",
+    "contract",
+    "ethereum",
+    "web3",
+    "UI",
+    "generator",
+    "react"
+  ],
+  "author": "Massis ORER",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/webmass/ether-gui/issues"
+  },
+  "dependencies": {
+    "@emotion/core": "^11.0.0",
+    "@emotion/css": "^11.1.3",
+    "ethers": "^5.0.32",
+    "global": "^4.4.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
+    "remove": "^0.1.5",
+    "rxjs": "^7.0.0"
+  },
+  "peerDependencies": {
+    "ethers": "^5.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "react-scripts": "4.0.3",
+    "typescript": "^4.1.*"
+  },
+  "homepage": "https://github.com/webmass/ether-gui#readme"
+}
