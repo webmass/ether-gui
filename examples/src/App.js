@@ -18,15 +18,37 @@ const providerOptions = {
   /* See Provider Options Section */
 };
 
+const handleProvider = async (proxyProvider) => {
+  const Web3Provider = new ethers.providers.Web3Provider(proxyProvider);
+  const signer = Web3Provider?.getSigner();
+  const network = await Web3Provider?.getNetwork();
+  return [Web3Provider, await signer?.getAddress(), network?.chainId?.toString()];
+}
+
 function App() {
   const [provider, setProvider] = useState();
   const [signerAddress, setSignerAddress] = useState('');
   const [contract, setContract] = useState();
-  const [netVersion, setNetVersion] = useState(window.ethereum?.networkVersion);
+  const [chainId, setChainId] = useState(window.ethereum?.networkVersion);
+
+  const onConnectionSuccess = (Web3Provider, owner, chainId) => {
+    setProvider(Web3Provider);
+    setSignerAddress(owner);
+    setChainId(chainId);
+
+    Web3Provider.provider.on('accountsChanged', async () => {
+      const signer = Web3Provider?.getSigner();
+      setSignerAddress(await signer?.getAddress());
+    });
+
+    Web3Provider.provider.on('chainChanged', async () => {
+      window.location.reload();
+    });
+  }
 
   useEffect(() => {
     let isMounted = true;
-
+    
     const init = async () => {
       /* Global ether-gui Preferences, not required */
       // etherGUI.init({
@@ -43,22 +65,11 @@ function App() {
 
       if (web3Modal.cachedProvider) {
         const provider = await web3Modal.connect();
-        const [Web3Provider, signerAddress] = await handleProvider(provider);
+        const [Web3Provider, owner, chainId] = await handleProvider(provider);
 
         if (!isMounted) { return }
 
-        setProvider(Web3Provider);
-        setSignerAddress(signerAddress);
-        setNetVersion(provider?.networkVersion);
-
-        provider.on('accountsChanged', async () => {
-          const signer = Web3Provider?.getSigner();
-          setSignerAddress(await signer?.getAddress());
-        });
-
-        provider.on('chainChanged', async () => {
-          window.location.reload();
-        });
+        onConnectionSuccess(Web3Provider, owner, chainId);
       }
     }
 
@@ -79,14 +90,8 @@ function App() {
     setContract(contract);
   }
 
-  const handleProvider = async (proxyProvider) => {
-    const Web3Provider = new ethers.providers.Web3Provider(proxyProvider);
-    const signer = Web3Provider?.getSigner();
-    return [Web3Provider, await signer?.getAddress()];
-  }
-
   const connect = async () => {
-    if(signerAddress) { return }
+    if (signerAddress) { return }
 
     const web3Modal = new Web3Modal({
       network: "mainnet", // optional
@@ -95,10 +100,9 @@ function App() {
     });
 
     const provider = await web3Modal.connect();
-    const [Web3Provider, owner] = await handleProvider(provider);
-    setProvider(Web3Provider);
-    setSignerAddress(owner);
-    setNetVersion(provider?.networkVersion)
+    const [Web3Provider, owner, chainId] = await handleProvider(provider);
+    
+    onConnectionSuccess(Web3Provider, owner, chainId);
   }
 
   return (
@@ -111,7 +115,7 @@ function App() {
         </button>
       </header>
       <div className="App-body">
-        { netVersion !== SUPPORTED_NET && signerAddress ? <NetworkWarning /> : null }
+        {chainId && chainId !== SUPPORTED_NET ? <NetworkWarning /> : null}
         <ExampleContractUI contract={contract} />
       </div>
     </div>
