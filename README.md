@@ -6,10 +6,16 @@ Please note that this library is still in an early stage.
 
 ![intro-pic](readme_assets/payable.png)
 > Example of a Material UI styled "depositAmount()"
-
+## Installation
+```
+yarn add ether-gui
+```
+or 
+```
+npm i ether-gui
+```
 ## Requirements
 react v17+, etherjs v5+
-
 ## Features
 Generate full UI for contracts / contract methods, easily customizable to be user-friendly.
 
@@ -25,10 +31,10 @@ Generate full UI for contracts / contract methods, easily customizable to be use
 ## Examples
 
 Please check the `examples` folder to see usage and customization options.
-There you will find material ui, semantic ui, custom and default "themes".
+There you will find `material ui`, `semantic ui`, `custom` and `default` "themes".
 
 ## Usage
-Basically, an etherjs contract is passed to ContractInteractor or ContractMethod, and the UI is automatically generated.
+Basically, an `etherjs` `contract` is passed to `ContractInteractor` or `ContractMethod`, and the UI is automatically generated.
 
 Many options are available to customize appearance, please check `examples/components/ExampleContractUI.jsx`
 
@@ -61,7 +67,7 @@ return (
 )
 
 ```
-### ContractInteractor example used for ExampleContract in examples
+### ContractInteractor example with options
 
 ```JSX
 <ContractInteractor
@@ -170,13 +176,12 @@ return (
 
 ## Illustrations
 
-Pictures of different styles for an "addPost" method that takes a "Post" as argument (corresponding to a `struct` in the Solidity and a JS object in the frontend)
+Pictures of different styles for an `addPost` method that takes a `Post` as argument (corresponding to a `struct` in the Solidity contract and a JS object in the frontend)
 
+#### Semantic UI style
 ![intro-pic](readme_assets/semantic.png)
-> Semantic UI style
 
+#### Material UI style
 ![intro-pic](readme_assets/material.png)
-> Material UI style
-
+#### Default style
 ![intro-pic](readme_assets/default.png)
-> Default style
