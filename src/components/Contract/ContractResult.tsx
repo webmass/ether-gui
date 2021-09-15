@@ -45,7 +45,7 @@ const ContractResult = ({
                     methodField.components.map((f, i) => {
                         return <li key={i}>
                             <ContractResult
-                                label={f.label || f.name || undefined}
+                                label={f.label || undefined}
                                 methodField={f}
                                 methodObj={methodObj}
                                 value={value[f.name]}
