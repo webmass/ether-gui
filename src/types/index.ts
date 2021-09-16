@@ -74,6 +74,7 @@ interface FieldComponentsOptions {
     InputLabelComponent?: GenericComponent;
     InputContainerComponent?: GenericComponent;
     SubContainerComponent?: GenericComponent;
+    ResultComponent?: GenericComponent;
 }
 export interface FieldOptions extends FieldComponentsOptions {
     id?: string;
@@ -112,7 +113,6 @@ export interface ContractMethodProps extends MethodObjectOptions, FieldComponent
     BtnComponent?: GenericComponent;
     BtnContainerComponent?: GenericComponent;
     FieldsContainerComponent?: GenericComponent;
-    ResultComponent?: GenericComponent;
     ResultsContainerComponent?: GenericComponent;
     ContainerComponent?: GenericComponent;
     ScannerLinkComponent?: React.ComponentType<ScannerLinkProps>;
@@ -386,11 +386,10 @@ export class MethodField {
 
         this.options = method.parameters?.fieldsOptions ? method.parameters?.fieldsOptions[this.statePath] : {};
 
-        const methTitle = method.parameters.title;
         const ethFields = method.parameters?.ethFields || [];
 
         this.id = this.options?.id || `methField_${MethodField.fieldIndex++}`;
-        this.label = this.options?.label || (isOutput && method.isReadOnly && !method.hasInputs && methTitle ? methTitle : undefined);
+        this.label = this.options?.label;
         this.required = this.options?.required ?? ((method.isPayable && this.name === 'value') || isFieldAlwaysRequired(this));
         this.decimals = this.options?.decimals || (ethFields.includes(this.statePath) ? 18 : undefined);
         this.placeholder = this.options?.placeholder;

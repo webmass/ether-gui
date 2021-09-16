@@ -109,7 +109,7 @@ const ExampleContractUI = ({ contract }) => {
                             'post.message.content': {
                                 required: true,
                                 label: 'Content',
-                            }
+                            },
                         }
                     },
                     'posts(uint256)': {
@@ -149,7 +149,7 @@ const ExampleContractUI = ({ contract }) => {
                             },
                             // options for the output, works the same as field/input options
                             output_0: {
-                                label: "User's balance in contract",
+                                label: "User's balance in contract : ",
                             }
                         },
                         // Prefill fields/inputs with some values

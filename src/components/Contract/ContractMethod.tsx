@@ -248,11 +248,10 @@ const ContractMethod = (props: ContractMethodProps) => {
 
     const outputs = methodObj.outputs?.map((field, index) => {
         const value = resultValueFormatter(field, outputResults[index], state);
-        const resultComponent = ResultComponent || (field.type.startsWith('address') ? ScannerLinkComponent : undefined);
+        const resultComponent = field.options?.ResultComponent || ResultComponent || (field.type.startsWith('address') ? ScannerLinkComponent : undefined);
 
         return <ContractResult
             key={index}
-            label={field.label || (isReadOnly && !hasInputs && title ? title : field.name || undefined)}
             methodField={field}
             methodObj={methodObj}
             value={value}

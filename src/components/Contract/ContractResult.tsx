@@ -26,9 +26,10 @@ const ContractResult = ({
     ResultLabelComponent = ResultLabelComponentDefault,
     ResultContainerComponent = StyledResultsContainer,
 }: props) => {
-    const name = wording[methodObj.name] || methodObj.name;
+    const methName = wording[methodObj.name] || methodObj.name;
     const type = wording[methodField.type] || methodField.type;
     const displayedValue = typeof value === 'string' ? wording[value] || value?.toString() : value;
+    const resultLabel = label || methodField.label || (methodObj.isReadOnly && !methodObj.hasInputs ? `${methName} (${type}) : ` : `${methodField.stateName} : `);
 
     const results = methodField.isArray || methodField.isTuple ?
         <ul>
@@ -45,7 +46,7 @@ const ContractResult = ({
                     methodField.components.map((f, i) => {
                         return <li key={i}>
                             <ContractResult
-                                label={f.label || undefined}
+                                label={f.label || `${f.name} : `}
                                 methodField={f}
                                 methodObj={methodObj}
                                 value={value[f.name]}
@@ -69,7 +70,7 @@ const ContractResult = ({
                 {
                     ResultLabelComponent ?
                         <ResultLabelComponent>
-                            {label === undefined ? `${name} (${type}) : ` : `${label}`}
+                            {resultLabel}
                         </ResultLabelComponent>
                         :
                         null
