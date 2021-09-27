@@ -274,10 +274,12 @@ const ContractMethod = (props: ContractMethodProps) => {
         return <>{outputs}</>;
     }
 
+    const isBtnHidden = isLoading && transaction && showTransactionLink;
+
     const buttonZone = <BtnContainerComponent>
         {beforeBtn}
         {
-            isLoading && transaction && showTransactionLink ?
+            isBtnHidden ?
                 null
                 :
                 <BtnComponent disabled={isBtnDisabled || isLoading || isInvalid} onClick={() => handleSubmit()}>
@@ -288,6 +290,8 @@ const ContractMethod = (props: ContractMethodProps) => {
     </BtnContainerComponent>;
 
     if (isBtnOnly) { return buttonZone }
+
+    const isBtnZoneVisible = beforeBtn || afterBtn || !isBtnHidden;
 
     const body = <>
         {children}
@@ -325,7 +329,7 @@ const ContractMethod = (props: ContractMethodProps) => {
         }
 
         {
-            buttonZone
+            isBtnZoneVisible ?  buttonZone : null
         }
 
     </>;
