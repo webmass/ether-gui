@@ -1,6 +1,6 @@
 {
   "name": "ether-gui",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "React UI generator and web3 interactions for Ethereum smart contracts",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
