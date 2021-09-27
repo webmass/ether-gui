@@ -3,13 +3,15 @@ import ContractMethod from './ContractMethod';
 import { ContractInteractorProps } from '../../types';
 import { isReadOnlyMethod } from '../../utils';
 
+const empty = {}
+
 const ContractInteractor = ({
     contract,
     methods,
     excludeMethods,
     methodsOptions,
     readOnlyFirst = true,
-    defaultMethodOptions = {},
+    defaultMethodOptions = empty,
     ContractMethodComponent = ContractMethod
  }: ContractInteractorProps) => {
     const [methodsSignatures, setMethodsSignatures] = useState<string[]>([]);

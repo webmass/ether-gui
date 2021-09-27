@@ -19,6 +19,8 @@ export enum NETWORK_CODENAMES {
   arbitrum = 'arbitrum',
 }
 
+export const BLOCK_SCAN = 'https://blockscan.com';
+
 export const DEFAULT_NETWORKS: Network[] = [
   {
     id: '1',

@@ -1,10 +1,10 @@
-import { ADDRESS_ZERO, basicERC20Abi } from './../constants';
+import { ADDRESS_ZERO, basicERC20Abi, BLOCK_SCAN } from './../constants';
 import { GenericReactChild, MethodField, Network, StringMap } from '../types';
 import { ethers, Contract } from 'ethers';
 import { getNetworks, getWording } from '../config';
 import { ParamType } from 'ethers/lib/utils';
 
-export const toHexa = (value: string | number): string => toDecimals(value).toString(16);
+export const toHexa = (value: string | number): string => ethers.utils.hexValue(Number(value));
 
 export const toDecimals = (value: string | number): number => {
     const radix = ethers.utils.isHexString(value.toString()) ? 16 : 10;
@@ -28,7 +28,7 @@ export const getNameFromNetVersion = (
     return network?.name || getWording().unsupportedNetwork;
 }
 
-export const getScanner = (id: string | number): string => getNetwork(id)?.scan || '';
+export const getScanner = (id: string | number): string => id ? (getNetwork(id)?.scan || '') : BLOCK_SCAN;
 
 export const getNativeCoinSymbol = (id: string | number): string => getNetwork(id)?.coinSymbol || '';
 

@@ -35,10 +35,12 @@ export type InputComponentProps = {
 
 export type InputTypeComponent = React.ComponentType<InputComponentProps | any>;
 export interface ScannerLinkProps {
+    scanUrl?: string;
     value?: string;
     label?: string;
     type?: 'address' | 'tx';
     shorten?: boolean;
+    useBlockScan?: boolean;
     netId?: string;
     children?: GenericReactChild;
 }
@@ -63,6 +65,7 @@ export type SubmitError = {
     reason: string;
     message: string;
     error?: any;
+    data?: any;
     code?: string | number;
 }
 
@@ -104,6 +107,7 @@ export interface MethodObjectOptions {
     fieldsOptions?: FieldsOptions;
 }
 export interface ContractMethodProps extends MethodObjectOptions, FieldComponentsOptions {
+    isBtnDisabled?: boolean;
     btnLabel?: GenericReactChild;
     onLoad?: (isLoading: boolean, state: any) => any;
     onPending?: (state: any, interaction: TransactionResponse) => void;

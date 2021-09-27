@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react';
 import { getScanner }   from '../utils';
-import useNetwork from './useNetwork';
 
 export default function useScanner(netId?: string): string {
-	const network = useNetwork();
-	const [scanner, setScanner] = useState(getScanner(netId || network));
+	const [scanner, setScanner] = useState(getScanner(netId || window.ethereum?.networkVersion));
 
 	useEffect(() => {
-		const scan = getScanner(netId || network);
+		const scan = getScanner(netId || window.ethereum?.networkVersion);
 		setScanner(scan);
-	}, [netId, network]);
+	}, [netId]);
 
 	return scanner;
 }

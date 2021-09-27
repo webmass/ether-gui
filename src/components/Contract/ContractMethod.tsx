@@ -21,8 +21,8 @@ import { formatValue } from '../../utils/index';
 const BtnComponentDefault = ({ children, ...props }) => <StyledButton {...props}>{children}</StyledButton>;
 
 const errorFormatterDefault = (error: SubmitError): FormattedError => {
-    const simple = error.error?.message || error.reason || error.message;
-    const code = (error.error?.code || error.code || '').toString();
+    const simple = error.error?.message || error?.data?.message || error.reason || error.message;
+    const code = (error.error?.code || error?.data?.code || error.code || '').toString();
     return ({ simple, detailed: error.message || simple, code });
 };
 
@@ -46,7 +46,8 @@ const ContractMethod = (props: ContractMethodProps) => {
         tokenFieldsMapping,
         hiddenFields,
         fieldsOptions = emptyObject as FieldsOptions,
-        
+
+        isBtnDisabled,
         btnLabel,
         InputComponent,
         inputContainsLabel,
@@ -95,7 +96,7 @@ const ContractMethod = (props: ContractMethodProps) => {
     const _wording = useWording(wording);
 
     const functionInterface = contract?.interface.functions[methodSignature];
-    
+
     const methodObj: MethodObject | undefined = useMemo(() => {
         return new MethodObject(functionInterface, {
             contract,
@@ -130,6 +131,10 @@ const ContractMethod = (props: ContractMethodProps) => {
     const checkValidity = () => {
         setIsInvalid(methodObj.hasInvalidFields(state, methodObj.inputs));
     }
+
+    useEffect(() => {
+        setIsCollapsed(collapsed);
+    }, [collapsed]);
 
     useEffect(() => {
         checkValidity();
@@ -269,19 +274,31 @@ const ContractMethod = (props: ContractMethodProps) => {
         return <>{outputs}</>;
     }
 
-    const button = <BtnContainerComponent>
-        <BtnComponent disabled={isLoading || isInvalid} onClick={() => handleSubmit()}>
-            {isLoading ? (isReadOnly ? _wording.pending : transaction ? _wording.pending : _wording.waiting) : buttonLabel}
-        </BtnComponent>
+    const buttonZone = <BtnContainerComponent>
+        {beforeBtn}
+        {
+            isLoading && transaction && showTransactionLink ?
+                null
+                :
+                <BtnComponent disabled={isBtnDisabled || isLoading || isInvalid} onClick={() => handleSubmit()}>
+                    {isLoading ? (isReadOnly ? _wording.pending : transaction ? _wording.pending : _wording.waiting) : buttonLabel}
+                </BtnComponent>
+        }
+        {afterBtn}
     </BtnContainerComponent>;
 
-    if (isBtnOnly) { return button }
+    if (isBtnOnly) { return buttonZone }
 
     const body = <>
         {children}
-        
-        {!hasVisibleInputs ? null : <FieldsContainerComponent>{beforeFields}{inputs}{afterFields}</FieldsContainerComponent>}
-        
+
+        {
+            !hasVisibleInputs && !beforeFields && !afterFields ?
+                null
+                :
+                <FieldsContainerComponent>{beforeFields}{inputs}{afterFields}</FieldsContainerComponent>
+        }
+
         {
             (!hasOutputs || !hasResults) && !transaction ?
                 null
@@ -306,11 +323,11 @@ const ContractMethod = (props: ContractMethodProps) => {
                 ErrorContainerComponent={ErrorContainerComponent}
             />
         }
-        {beforeBtn}
+
         {
-            isLoading && transaction && showTransactionLink ? null : button
+            buttonZone
         }
-        {afterBtn}
+
     </>;
 
     const Header = ({ children }) => enableCollapseOnClick ?

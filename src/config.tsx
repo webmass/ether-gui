@@ -27,6 +27,7 @@ const defaultWording: Wording = {
     },
     errors: {
         '4001': 'Action canceled',
+        '-32000': 'Insufficient funds to cover spendings and / or gas fees',
     },
 }
 
