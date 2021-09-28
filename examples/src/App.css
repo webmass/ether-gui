@@ -40,7 +40,8 @@
 .App-header-btn {
   font-size: 12px;
   background-color: royalblue;
-  padding: 0.5rem;
+  padding: 0.6rem;
+  border-radius: 5px;
   border: none;
   color: white;
   cursor: pointer;
