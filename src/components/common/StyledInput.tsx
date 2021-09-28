@@ -9,7 +9,7 @@ const defaultClass = css({
   borderRadius: '0.3rem',
   outlineWidth: 0,
   boxSizing: 'border-box',
-  '&[type="text"]': {
+  '&[type="text"],&[type="number"]': {
     width: '100%',
   },
   '&:focus': {

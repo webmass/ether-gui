@@ -30,6 +30,7 @@ const ContractFieldInputs = ({
         required: methodField.required,
         type: methodField.inputType,
         methodField,
+        min: methodField.min,
     }
     
     const inputs = (!isArray || isCommaList) ? <InputComponent

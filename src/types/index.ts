@@ -364,6 +364,7 @@ export class MethodField {
     public type: string;
     public baseType: string;
     public inputType: string;
+    public min?: string;
     public components: MethodField[];
     public arrayLength: number;
     public required: boolean;
@@ -398,7 +399,8 @@ export class MethodField {
         this.decimals = this.options?.decimals || (ethFields.includes(this.statePath) ? 18 : undefined);
         this.placeholder = this.options?.placeholder;
         this.onChange = this.options?.onChange;
-        this.inputType = this.type === 'bool' ? 'checkbox' : 'text';
+        this.inputType = this.type === 'bool' ? 'checkbox' : this.type.includes('int') ? 'number' : 'text';
+        this.min = this.type.includes('uint') ? '0' : undefined;
         this.isVisibleField = !method.parameters.hiddenFields?.length || !method.parameters.hiddenFields.includes(this.statePath);
     }
 }

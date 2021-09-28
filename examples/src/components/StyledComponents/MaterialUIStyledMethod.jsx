@@ -34,12 +34,12 @@ export const MaterialUIStyledMethod = (props) => {
 
     const BtnContainerComponent = ({ children, ...props }) => <div style={{ marginTop: '1rem' }} {...props}>{children}</div>;
     
-    const InputComponent = ({ methodField, ...props }) => {
+    const InputComponent = ({ methodField, min, max, ...props }) => {
         const label = methodField?.label || (!methodField?.isArray ? methodField?.stateName : props.name);
         return methodField?.type === 'bool' ? 
          <Checkbox {...props} /> 
         : 
-         <TextField variant="standard" fullWidth={true} label={label} {...props} />;
+         <TextField variant="standard" fullWidth={true} label={label} inputProps={{ min, max }} {...props} />;
     }
 
     const InputContainerComponent = ({ children, ...props }) => <div {...props}>{children}</div>;
