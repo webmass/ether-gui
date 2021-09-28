@@ -156,7 +156,10 @@ const ExampleContractUI = ({ contract }) => {
                         // initialState: {
                         //   input_0: 'some_address_to_use_as_default'
                         // },
-                    }
+                    },
+                    'withdrawAmount(uint256)': {
+                        ethFields: ['amount'],
+                    },
                 }}
 
             // -- default methodsOptions={}
