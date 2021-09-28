@@ -6,6 +6,8 @@ Please note that this library is still in an early stage.
 
 [See Demo](https://kind-bohr-8eaab4.netlify.app/) 
 
+[Github](https://github.com/webmass/ether-gui) 
+
 ![intro-pic](readme_assets/payable.png)
 > Example of a Material UI styled "depositAmount()"
 ## Installation
@@ -150,6 +152,7 @@ return (
         },
         'balances(address)': {
             title: 'Custom title for "balances(address)" method',
+            // ethFields is to indicate input/output fields that needs to be formatted as Eth (BigNumber with 18 decimals)
             ethFields: ['output_0'],
             btnLabel: 'Check balance in this contract',
             fieldsOptions: {
@@ -187,3 +190,7 @@ Pictures of different styles for an `addPost` method that takes a `Post` as argu
 ![intro-pic](readme_assets/material.png)
 #### Default style
 ![intro-pic](readme_assets/default.png)
+
+### Tips welcome
+
+If you like the project and wish to see it grow, please consider sending a [tip](https://bit.ly/3kN2rGM) ❤️
