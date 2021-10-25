@@ -11,7 +11,7 @@ import ContractExample from './contracts/ExampleContract.json';
 import NetworkWarning from './components/NetworkWarning';
 import ExampleContractUI from './components/ExampleContractUI';
 
-const SUPPORTED_NET = '3';
+const SUPPORTED_NET = '4';
 const CONTRACT_ADDRESS = ContractExample.networks[SUPPORTED_NET].address;
 
 const providerOptions = {
