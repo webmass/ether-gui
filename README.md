@@ -35,7 +35,7 @@ Generate full UI for contracts / contract methods, easily customizable to be use
 ## Examples
 
 Please check the `examples` folder to see usage and customization options.
-There you will find `material ui`, `semantic ui`, `custom` and `default` "themes".
+There you will find `chakra ui`, `material ui`, `semantic ui`, `custom` and `default` "themes".
 
 ## Usage
 Basically, an `etherjs` `contract` is passed to `ContractInteractor` or `ContractMethod`, and the UI is automatically generated.
