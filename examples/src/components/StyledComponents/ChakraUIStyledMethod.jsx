@@ -74,7 +74,7 @@ export const ChakraUIStyledMethod = (props) => {
             title: `Transaction ${status}`,
             description: <ScannerLink type="tx" value={txHash} />,
             status: toastStatus || status,
-            duration: null,
+            duration: status === 'success' ? 6000 : null,
             isClosable: true,
         }
         if (toast.isActive(txHash)) {
