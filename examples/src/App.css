@@ -14,7 +14,9 @@
   width: 100%;
   display: inline-grid;
   grid-column-gap: 2rem;
-  grid-template-columns: repeat(4, max-content);
+  grid-template-columns: repeat(5, max-content);
+  padding-bottom: 0.2rem;
+  border-bottom: 2px solid #ccc;
 }
 
 .App-themes a {

@@ -26,3 +26,6 @@ yarn.lock
 
 .yalc
 yalc.lock
+
+cypress/screenshots
+cypress/videos

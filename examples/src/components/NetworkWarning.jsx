@@ -1,3 +1,15 @@
+import { css } from '@emotion/css';
+
+const wrapperClass = css`
+    margin: 1rem 0;
+`
+
+const linkClass = css`
+    cursor: pointer;
+    color: darkblue;
+    text-decoration: underline;
+`
+
 const NetworkWarning = () => {
     const switchNetwork = async () => {
         try {
@@ -10,8 +22,8 @@ const NetworkWarning = () => {
         }
     }
 
-    return <div style={{ margin: '1rem 0' }}>
-        ❌ Wrong Network, please use <a href="#warning" style={{ cursor: 'pointer' }} onClick={switchNetwork}>Rinkeby</a> 🙂
+    return <div className={wrapperClass}>
+        ❌ Wrong Network, please use <span className={linkClass} onClick={switchNetwork}>Rinkeby</span> 🙂
     </div>;
 }
 
