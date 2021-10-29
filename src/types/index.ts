@@ -110,9 +110,9 @@ export interface ContractMethodProps extends MethodObjectOptions, FieldComponent
     isBtnDisabled?: boolean;
     btnLabel?: GenericReactChild;
     onLoad?: (isLoading: boolean, state: any) => any;
-    onPending?: (state: any, interaction: TransactionResponse) => void;
-    onSuccess?: (state: any, interaction: TransactionResponse | any, receipt?: ethers.providers.TransactionReceipt) => void;
-    onFail?: (e: any, formattedError: FormattedError, state: any, interaction: TransactionResponse | any, receipt?: ethers.providers.TransactionReceipt) => void;
+    onPending?: (interaction: TransactionResponse, state: any) => void;
+    onSuccess?: (interaction: TransactionResponse | any, state: any, receipt?: ethers.providers.TransactionReceipt) => void;
+    onFail?: (interaction: TransactionResponse | any, e: any, formattedError: FormattedError, state: any, receipt?: ethers.providers.TransactionReceipt) => void;
     HeaderComponent?: GenericComponent;
     BtnComponent?: GenericComponent;
     BtnContainerComponent?: GenericComponent;
@@ -343,6 +343,7 @@ export class MethodObject {
                         return state[field.stateName];
                     })
             );
+            
             if (this.isPayable) {
                 const overrides = {
                     value: ethers.utils.parseEther(state.value || '0'),

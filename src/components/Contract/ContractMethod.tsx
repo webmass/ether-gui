@@ -149,7 +149,7 @@ const ContractMethod = (props: ContractMethodProps) => {
     useEffect(() => {
         let isMounted = true;
         const init = async () => {
-            if (methodObj?.inputs) {
+            if (methodObj?.inputs && contract?.provider) {
                 const values = await methodObj.initValues();
                 if (!isMounted) { return }
                 setState(values);
@@ -186,8 +186,8 @@ const ContractMethod = (props: ContractMethodProps) => {
                 const tx = (interaction as TransactionResponse);
                 setTransactionStatus(TxStatusList.pending);
                 setTransaction(tx);
-                if (onPending) {
-                    onPending(state, tx);
+                if (onPending && tx?.hash) {
+                    onPending(tx, state);
                 }
 
                 receipt = await tx.wait();
@@ -208,7 +208,7 @@ const ContractMethod = (props: ContractMethodProps) => {
             await exec();
             setTransactionStatus(TxStatusList.success);
             try {
-                if (onSuccess) onSuccess(state, interaction, receipt);
+                if (onSuccess && interaction?.hash) onSuccess(interaction, state, receipt);
             } catch (e) {
                 console.warn('Tx success but onSuccess function failed');
             }
@@ -219,7 +219,7 @@ const ContractMethod = (props: ContractMethodProps) => {
             setError(formattedError);
             setTransactionStatus(TxStatusList.failed);
             setOutputResults([]);
-            if (onFail) onFail(e, formattedError, state, interaction, receipt);
+            if (onFail && interaction?.hash) onFail(interaction, e, formattedError, state, receipt);
         }
 
         setIsLoading(false);
